@@ -1,0 +1,27 @@
+# Tasks - Community Event App
+
+- [x] Project Setup
+    - [x] Create folder structure
+    - [x] Initialize `index.html`
+    - [x] Initialize `css/styles.css`
+    - [x] Initialize `js/app.js`
+- [x] Core UI (HTML/CSS)
+    - [x] Design System (Colors, Typography, Gradients)
+    - [x] Header & Navigation
+    - [x] Event Card Component
+    - [x] Event Listing Grid
+    - [x] Organizer Dashboard View
+- [x] Logic & Interactivity (JS)
+    - [x] Event data structure
+    - [x] RSVP Logic (Join/Leave)
+    - [x] Capacity & Real-time counter updates
+    - [x] Confirmation messages (Toast/Alerts)
+    - [x] Dashboard statistics
+- [x] Attendee Data Capture
+    - [x] Create Registration Modal (HTML/CSS)
+    - [x] Implement Data Capture Logic (JS)
+    - [x] Update Dashboard to display attendee lists
+- [/] Refinement & Polishing
+    - [ ] Animations (Transitions, Hovers)
+    - [ ] Responsiveness check
+    - [x] Final Verification
