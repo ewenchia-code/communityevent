@@ -61,6 +61,30 @@
             </div>
         </div>
 
+        <!-- Organizer Login View -->
+        <main id="login-view" class="view">
+            <div class="hero-section" style="margin-bottom: 30px; text-align: center;">
+                <span style="font-size: 3rem; margin-bottom: 20px; display: block;">🔒</span>
+                <h1>Organizer Login</h1>
+                <p>Enter password to access the dashboard.</p>
+            </div>
+            
+            <div class="stat-card" style="max-width: 400px; margin: 0 auto;">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="organizer-pass">Password</label>
+                        <input type="password" id="organizer-pass" placeholder="••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Unlock Dashboard
+                    </button>
+                    <p id="login-error" style="color: var(--danger); font-size: 0.8rem; margin-top: 10px; display: none; text-align: center;">
+                        Incorrect password. Please try again.
+                    </p>
+                </form>
+            </div>
+        </main>
+
         <!-- Discover View -->
         <main id="discover-view" class="view active">
             <div class="hero-section" style="margin-bottom: 30px; animation: fadeIn 0.8s ease;">

@@ -44,6 +44,7 @@ events.forEach(e => {
 });
 
 let activeEventId = null;
+let isOrganizerLoggedIn = false;
 
 // Initialize State
 function saveState() {
@@ -54,11 +55,14 @@ function saveState() {
 const eventGrid = document.getElementById('event-grid');
 const discoverView = document.getElementById('discover-view');
 const dashboardView = document.getElementById('dashboard-view');
+const loginView = document.getElementById('login-view');
 const navItems = document.querySelectorAll('.nav-item');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toast-message');
 const registrationModal = document.getElementById('registration-modal');
 const rsvpForm = document.getElementById('rsvp-form');
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
 
 // Navigation
 navItems.forEach(item => {
@@ -66,19 +70,46 @@ navItems.forEach(item => {
         e.preventDefault();
         const view = item.getAttribute('data-view');
         
+        if (view === 'dashboard' && !isOrganizerLoggedIn) {
+            switchView('login');
+        } else {
+            switchView(view);
+        }
+
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
-        
-        if (view === 'discover') {
-            discoverView.classList.add('active');
-            dashboardView.classList.remove('active');
-            renderEvents();
-        } else {
-            discoverView.classList.remove('active');
-            dashboardView.classList.add('active');
-            renderDashboard();
-        }
     });
+});
+
+function switchView(view) {
+    discoverView.classList.remove('active');
+    dashboardView.classList.remove('active');
+    loginView.classList.remove('active');
+
+    if (view === 'discover') {
+        discoverView.classList.add('active');
+        renderEvents();
+    } else if (view === 'dashboard') {
+        dashboardView.classList.add('active');
+        renderDashboard();
+    } else if (view === 'login') {
+        loginView.classList.add('active');
+    }
+}
+
+// Login Logic
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const password = document.getElementById('organizer-pass').value;
+
+    if (password === '123') {
+        isOrganizerLoggedIn = true;
+        loginError.style.display = 'none';
+        switchView('dashboard');
+        showToast("Access Granted. Welcome back!");
+    } else {
+        loginError.style.display = 'block';
+    }
 });
 
 // Modal Logic
@@ -151,18 +182,12 @@ function handleRSVP(id) {
     if (!event) return;
 
     if (event.isRSVP) {
-        // Leave logic (no modal needed)
         event.joined--;
         event.isRSVP = false;
-        // Optional: remove them from attendees if we want to be strict, but usually we just mark it.
-        // For simplicity, we'll just remove the last entry or filter it out.
-        // Here we'll just filter by a simulated unique ID if we had one, but for now we'll just pop the last one or leave it.
-        // Let's just decrease count and toggle flag.
         showToast("You've left the event.");
         saveState();
         renderEvents();
     } else {
-        // Join logic -> Open Modal
         if (event.joined < event.capacity) {
             openModal(id);
         } else {
